@@ -1,6 +1,7 @@
-import tokenizer
+from tokenizer import tokenizer
 
 def test_tokenizer():
-	assert tokenizer.getToken("1234") == 1234
-	assert tokenizer.getToken("0") == 0
-	assert tokenizer.getToken("+") == '+'
+	t=tokenizer("1234+0")
+	assert t.getToken() == 1234
+	assert t.getToken() == '+'
+	assert t.getToken() == 0
