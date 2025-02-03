@@ -1,8 +1,11 @@
-from calculator.tokenizer import tokenizer
+"""Test case for the tokenizer"""
+from calculator.tokenizer import Tokenizer
+
 
 def test_tokenizer():
-	t=tokenizer("1234+ 0")
-	assert t.getToken() == 1234
-	assert t.getToken() == '+'
-	assert t.getToken() == 0
-	assert t.getToken() == ''
+    """Test function for the tokenizer"""
+    t = Tokenizer("1234+ 0")
+    assert t.get_token() == 1234
+    assert t.get_token() == "+"
+    assert t.get_token() == 0
+    assert t.get_token() == ""
