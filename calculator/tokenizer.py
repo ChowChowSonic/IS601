@@ -44,3 +44,7 @@ class Tokenizer:
     def get_string(self):
         """returns the raw contents of the tokenizer"""
         return self.content
+
+    def has_next(self):
+        """Checks if there are more tokens to be retrieved"""
+        return self.index < len(self.content)

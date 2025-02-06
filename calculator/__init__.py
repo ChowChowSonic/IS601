@@ -5,11 +5,11 @@ def parse_args(*args):
     content = "".join(map(str, args))
     tokenizer = Tokenizer(content)
     arr=[]
-    while True:
+    while tokenizer.has_next():
         token = tokenizer.get_token()
         if not token:
             break
-        arr.append(token) # appends each token to the array
+        arr.append(token)
     return arr
  
 if __name__ == "__main__":
