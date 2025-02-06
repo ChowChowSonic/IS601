@@ -33,10 +33,10 @@ class Tokenizer:
         functions["-"] = self._get_operator
         functions["*"] = self._get_operator
         functions["/"] = self._get_operator
+        functions["^"] = self._get_operator
         functions["\\"] = self._get_operator
-        for i in range(ord("0"), ord("9")):
-            functions[chr(i)] = self._get_num_const
-        functions["."] = self._get_num_const
+        for i in "1234567890.":
+            functions[i] = self._get_num_const
         while self.content[self.index] in " \t\n":
             self.index += 1
         return functions[self.content[self.index]]()
