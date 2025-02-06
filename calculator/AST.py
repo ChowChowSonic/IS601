@@ -23,7 +23,7 @@ class NumberExprAST(AST):
 class AdditionStmtAST(AST):
     """A class representing an addition statement; a+b"""
 
-    def __init__(self, LHS, RHS):
+    def __init__(self, LHS:AST, RHS:AST):
         self.LHS = LHS
         self.RHS = RHS
 
@@ -34,7 +34,7 @@ class AdditionStmtAST(AST):
 class SubtractionStmtAST(AST):
     """A class representing a subtraction statement; a-b"""
 
-    def __init__(self, LHS, RHS):
+    def __init__(self, LHS:AST, RHS:AST):
         self.LHS = LHS
         self.RHS = RHS
 
@@ -45,7 +45,7 @@ class SubtractionStmtAST(AST):
 class DivisionStmtAST(AST):
     """A class representing a division statement; a/b"""
 
-    def __init__(self, LHS, RHS):
+    def __init__(self, LHS:AST, RHS:AST):
         self.LHS = LHS
         self.RHS = RHS
 
@@ -53,13 +53,13 @@ class DivisionStmtAST(AST):
         r = self.RHS.codegen()
         if r == 0:
             raise Exception("Divide by 0 error!")
-        return self.LHS.codegen() / self.RHS.codegen()
+        return self.LHS.codegen() / r
 
 
 class MultiplicationStmtAST(AST):
     """A class representing a multiplication statement; a*b"""
 
-    def __init__(self, LHS, RHS):
+    def __init__(self, LHS:AST, RHS:AST):
         self.LHS = LHS
         self.RHS = RHS
 
