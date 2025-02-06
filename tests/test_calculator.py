@@ -1,18 +1,8 @@
-'''My Calculator Test'''
-from calculator import AST
+"""Tests the arg parsing capabilities of the calculator module."""
+from calculator import parse_args
 
-def test_addition():
-    '''Test that the addition function works '''    
-    assert AST.AdditionStmtAST(AST.NumberExprAST(2),AST.NumberExprAST(2)).codegen() == 4
-
-def test_subtraction():
-    '''Test that the subtraction function works '''    
-    assert AST.SubtractionStmtAST(AST.NumberExprAST(2),AST.NumberExprAST(2)).codegen() == 0
-
-def test_multiplication():
-    '''Test that the multiplication function works '''    
-    assert AST.MultiplicationStmtAST(AST.NumberExprAST(3),AST.NumberExprAST(2)).codegen() == 6
-
-def test_division():
-    '''Test that the division function works '''    
-    assert AST.DivisionStmtAST(AST.NumberExprAST(2),AST.NumberExprAST(2)).codegen() == 1
+def test_argparse():
+    """Tests the arg parsing capabilities of the calculator module."""
+    assert parse_args("1+2+3", "+4") == [1, "+", 2, "+", 3, "+", 4]
+    assert parse_args("5-6*7/8") == [5, "-", 6, "*", 7, "/", 8]
+    assert parse_args("9^10") == [9, "^", 10]
