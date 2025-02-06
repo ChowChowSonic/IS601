@@ -29,3 +29,39 @@ class AdditionStmtAST(AST):
 
     def codegen(self):
         return self.LHS.codegen() + self.RHS.codegen()
+
+
+class SubtractionStmtAST(AST):
+    """A class representing a subtraction statement; a-b"""
+
+    def __init__(self, LHS, RHS):
+        self.LHS = LHS
+        self.RHS = RHS
+
+    def codegen(self):
+        return self.LHS.codegen() - self.RHS.codegen()
+
+
+class DivisionStmtAST(AST):
+    """A class representing a division statement; a/b"""
+
+    def __init__(self, LHS, RHS):
+        self.LHS = LHS
+        self.RHS = RHS
+
+    def codegen(self):
+        r = self.RHS.codegen()
+        if r == 0:
+            raise Exception("Divide by 0 error!")
+        return self.LHS.codegen() / self.RHS.codegen()
+
+
+class MultiplicationStmtAST(AST):
+    """A class representing a multiplication statement; a*b"""
+
+    def __init__(self, LHS, RHS):
+        self.LHS = LHS
+        self.RHS = RHS
+
+    def codegen(self):
+        return self.LHS.codegen() * self.RHS.codegen()
