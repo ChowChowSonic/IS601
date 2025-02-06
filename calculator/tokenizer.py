@@ -13,7 +13,7 @@ class Tokenizer:
         """Retrieves a number constant starting from the current index in the string"""
         ret = ""
         while (
-            self.index < len(self.content) and self.content[self.index] in "1234567890"
+            self.index < len(self.content) and self.content[self.index] in "1234567890."
         ):
             ret += self.content[self.index]
             self.index += 1
@@ -36,6 +36,7 @@ class Tokenizer:
         functions["\\"] = self._get_operator
         for i in range(ord("0"), ord("9")):
             functions[chr(i)] = self._get_num_const
+        functions["."] = self._get_num_const
         while self.content[self.index] in " \t\n":
             self.index += 1
         return functions[self.content[self.index]]()
