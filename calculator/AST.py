@@ -16,8 +16,8 @@ class AST:
 class BinaryAST(AST):
 
     def __init__(self, LHS: AST, RHS: AST):
-        self.LHS = LHS
-        self.RHS = RHS
+        self.LHS:AST = LHS
+        self.RHS:AST = RHS
 
     def codegen(self):
         raise NotImplementedError("BinaryAST does not implement a codegen function!")
@@ -53,7 +53,7 @@ class DivisionStmtAST(BinaryAST):
     def codegen(self):
         r = self.RHS.codegen()
         if r == 0:
-            raise Exception("Divide by 0 error!")
+            raise ZeroDivisionError("Divide by 0 error!")
         return self.LHS.codegen() / r
 
 

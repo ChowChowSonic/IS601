@@ -6,7 +6,7 @@ from calculator import AST
 
 def test_ast():
     """Testing Abstract Syntax Tree"""
-    # AST.AST.codegen() throws an error when called
+    # AST.AST() & AST.AST.codegen() throws an error when called
     with pytest.raises(NotImplementedError):
         AST.AST()
 
@@ -46,3 +46,8 @@ def test_division():
     assert (
         AST.DivisionStmtAST(AST.NumberExprAST(2), AST.NumberExprAST(2)).codegen() == 1
     )
+    with pytest.raises(ZeroDivisionError):
+        assert (
+            AST.DivisionStmtAST(AST.NumberExprAST(2), AST.NumberExprAST(0)).codegen()
+            == 1
+        )
