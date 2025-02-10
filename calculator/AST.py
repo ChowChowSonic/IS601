@@ -7,7 +7,7 @@ class AST:
     def __init__(self):
         raise NotImplementedError("AST is an abstract class, AST() is not callable!")
 
-    def codegen():
+    def codegen(self):
         raise NotImplementedError(
             "AST is an abstract class, AST.codegen() was not implemented!"
         )
@@ -16,8 +16,8 @@ class AST:
 class BinaryAST(AST):
 
     def __init__(self, LHS: AST, RHS: AST):
-        self.LHS:AST = LHS
-        self.RHS:AST = RHS
+        self.LHS: AST = LHS
+        self.RHS: AST = RHS
 
     def codegen(self):
         raise NotImplementedError("BinaryAST does not implement a codegen function!")
