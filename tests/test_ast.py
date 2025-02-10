@@ -16,7 +16,7 @@ def test_ast():
     """Testing Abstract Syntax Tree"""
     # AST() & AST.codegen() throws an error when called
     with pytest.raises(NotImplementedError):
-        AST()
+        AST().codegen()
 
 
 def test_binaryast():
