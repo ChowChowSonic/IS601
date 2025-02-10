@@ -4,9 +4,10 @@ from AST import *
 
 import sys
 
-class Calculator: 
+
+class Calculator:
     @staticmethod
-    def _parse_args(*args: str):
+    def _parse_args(*args: str) -> list[int | float | str]:
         """parses any number of strings as one long string, then tokenizes it into an array"""
         content = "".join(map(str, args))
         tokenizer = Tokenizer(content)
@@ -16,14 +17,12 @@ class Calculator:
             arr.append(token)
         return arr
 
-
     # Ok so if I want to implement a recusive descent parser, I can do one of two things:
     # Either:
     #   A: Repeat myself a little bit with the AST-parsing functions
     #       or
     #   B: Don't repeat myself, but use roughly 6 if-stmts in one recursive function
     # Lord help me.
-
 
     @staticmethod
     def _create_AST_instance(
@@ -39,24 +38,23 @@ class Calculator:
         }
         return possibilities[operator](lhs, rhs)
 
-
     @staticmethod
-    def _higher_operator_precidence(tokens: list[int | float | str]):
+    def _higher_operator_precidence(tokens: list[int | float | str]) -> AST:
         lhs = NumberExprAST(tokens.pop(0))
         while len(tokens) > 0 and isinstance(tokens[0], str) and tokens[0] in "*/\\":
             op = tokens.pop(0)
             lhs = Calculator._create_AST_instance(lhs, NumberExprAST(tokens.pop(0)), op)
         return lhs
 
-
     @staticmethod
     def _lower_operator_precidence(tokens: list[int | float | str]) -> AST:
         lhs = Calculator._higher_operator_precidence(tokens)
         while len(tokens) > 0 and isinstance(tokens[0], str) and tokens[0] in "+-":
             op = tokens.pop(0)
-            lhs = Calculator._create_AST_instance(lhs, Calculator._higher_operator_precidence(tokens), op)
+            lhs = Calculator._create_AST_instance(
+                lhs, Calculator._higher_operator_precidence(tokens), op
+            )
         return lhs
-
 
     # Attempt #1 to not repeat myself
     # def generate_AST(tokens:list[int|float|str], operators:list[str]) -> AST:
@@ -69,9 +67,8 @@ class Calculator:
     #     possibilities={'+':AdditionStmtAST, '-':SubtractionStmtAST, '*':MultiplicationStmtAST, '/':DivisionStmtAST, '\\':DivisionStmtAST}
     #     return possibilities[x](lhs, rhs)
 
-
     @staticmethod
-    def _print_result(*args:list[str]):
+    def _print_result(*args: list[str]) -> int | float:
         """Prints the result of a mathematical calculation passed via 1 or more argument(s)"""
         tokens = Calculator._parse_args(*args)
         ast = Calculator._lower_operator_precidence(tokens)
@@ -80,9 +77,8 @@ class Calculator:
         Calculations.add_to_history(ast)
         return result
 
-
     @staticmethod
-    def get_input(argv:list[str]):
+    def get_input(argv: list[str]) -> float | int:
         # if len(argv) == 1:
         #     ctr = 0
         #     x = " "
@@ -96,4 +92,4 @@ class Calculator:
         #         if x != "":
         #             Calculator._print_result(x)
         # else:
-            return Calculator._print_result(*argv)
+        return Calculator._print_result(*argv)

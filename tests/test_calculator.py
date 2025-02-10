@@ -1,8 +1,7 @@
 """Tests the arg parsing capabilities of the calculator module."""
 
-from calculator import (
-    Calculator
-)
+import pytest
+from calculator import Calculator
 from calculator.AST import (
     AdditionStmtAST,
     DivisionStmtAST,
@@ -13,15 +12,25 @@ from calculator.AST import (
 from calculator.calculations import Calculations
 
 
-def test_calculator():
+@pytest.mark.parametrize(
+    "test_input, expected",
+    [
+        ("3+5", 8),
+        ("2+4", 6),
+        ("6*9", 54),
+        ("5", 5),
+        ("10 +3", 13),
+        ("10*3* 3", 90),
+        ("10 / 3", 3.3333333333333335),
+        ("100+5     ", 105),
+        ("1+2+3", 6),
+    ],
+)
+def test_calculator(test_input, expected):
     """Tests the printing function of the calculator"""
-    assert Calculator.get_input("5") == 5
-    assert Calculator.get_input("10 +3") == 13
-    assert Calculator.get_input("10*3* 3") == 90
-    assert Calculator.get_input("10 / 3") == 3.3333333333333335
-    assert Calculator.get_input("100+5     ") == 105
-    assert Calculator.get_input("1+2+3") == 6
-
+    assert Calculator.get_input(test_input) == expected
+    with pytest.raises(ZeroDivisionError):
+        assert Calculator.get_input("1/0") == 1
 
 def test_history():
     """Tests the history functionality of the Calculations class"""
