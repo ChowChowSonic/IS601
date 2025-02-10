@@ -1,6 +1,8 @@
 """Tests the arg parsing capabilities of the calculator module."""
 
-from calculator import parse_args, lower_operator_precidence, higher_operator_precidence
+from calculator import (
+    Calculator
+)
 from calculator.AST import (
     AdditionStmtAST,
     DivisionStmtAST,
@@ -11,19 +13,14 @@ from calculator.AST import (
 from calculator.calculations import Calculations
 
 
-def test_argparse():
-    """Tests the arg parsing capabilities of the calculator module."""
-    assert parse_args("1+2+3", "+4") == [1, "+", 2, "+", 3, "+", 4]
-    assert parse_args("5-6*7/8") == [5, "-", 6, "*", 7, "/", 8]
-    assert parse_args("9^10") == [9, "^", 10]
-
-
-def test_calculation():
-    """Tests the calculation function using long strings of input"""
-    assert lower_operator_precidence(parse_args("2+3*4")).codegen() == 14
-    assert lower_operator_precidence(parse_args("5-6*7/8")).codegen() == -0.25
-    assert lower_operator_precidence(parse_args("9+10")).codegen() == 19
-    assert higher_operator_precidence(parse_args("9*10")).codegen() == 90
+def test_calculator():
+    """Tests the printing function of the calculator"""
+    assert Calculator.get_input("5") == 5
+    assert Calculator.get_input("10 +3") == 13
+    assert Calculator.get_input("10*3* 3") == 90
+    assert Calculator.get_input("10 / 3") == 3.3333333333333335
+    assert Calculator.get_input("100+5     ") == 105
+    assert Calculator.get_input("1+2+3") == 6
 
 
 def test_history():
