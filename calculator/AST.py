@@ -1,5 +1,5 @@
 """The base class & inherited classes for an Abstract Syntax tree"""
-
+from __future__ import annotations 
 
 class AST:
     """The base class class for an Abstract Syntax tree"""
@@ -12,6 +12,20 @@ class AST:
         raise NotImplementedError(
             "AST is an abstract class, AST.codegen() was not implemented!"
         )
+    
+    @staticmethod
+    def create_AST_instance(
+        lhs: 'AST' | int | float, rhs: 'AST' | int | float, operator: str
+    ) -> 'AST':
+        """Creates the actual AST based on the operator supplied"""
+        possibilities = {
+            "+": AdditionStmtAST,
+            "-": SubtractionStmtAST,
+            "*": MultiplicationStmtAST,
+            "/": DivisionStmtAST,
+            "\\": DivisionStmtAST,
+        }
+        return possibilities[operator](lhs, rhs)
 
 
 class BinaryAST(AST):

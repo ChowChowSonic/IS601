@@ -1,6 +1,6 @@
 from tokenizer import Tokenizer
 from calculations import Calculations
-from AST import *
+from AST import AST, NumberExprAST, AdditionStmtAST, SubtractionStmtAST, MultiplicationStmtAST, DivisionStmtAST
 
 import sys
 
@@ -22,28 +22,14 @@ class Calculator:
     #   A: Repeat myself a little bit with the AST-parsing functions
     #       or
     #   B: Don't repeat myself, but use roughly 6 if-stmts in one recursive function
-    # Lord help me.
-
-    @staticmethod
-    def _create_AST_instance(
-        lhs: AST | int | float, rhs: AST | int | float, operator: str
-    ) -> AST:
-        """Creates the actual AST based on the operator supplied"""
-        possibilities = {
-            "+": AdditionStmtAST,
-            "-": SubtractionStmtAST,
-            "*": MultiplicationStmtAST,
-            "/": DivisionStmtAST,
-            "\\": DivisionStmtAST,
-        }
-        return possibilities[operator](lhs, rhs)
+    # Lord help me. 
 
     @staticmethod
     def _higher_operator_precidence(tokens: list[int | float | str]) -> AST:
         lhs = NumberExprAST(tokens.pop(0))
         while len(tokens) > 0 and isinstance(tokens[0], str) and tokens[0] in "*/\\":
             op = tokens.pop(0)
-            lhs = Calculator._create_AST_instance(lhs, NumberExprAST(tokens.pop(0)), op)
+            lhs = AST.AST.create_AST_instance(lhs, NumberExprAST(tokens.pop(0)), op)
         return lhs
 
     @staticmethod
@@ -51,7 +37,7 @@ class Calculator:
         lhs = Calculator._higher_operator_precidence(tokens)
         while len(tokens) > 0 and isinstance(tokens[0], str) and tokens[0] in "+-":
             op = tokens.pop(0)
-            lhs = Calculator._create_AST_instance(
+            lhs = AST.AST.create_AST_instance(
                 lhs, Calculator._higher_operator_precidence(tokens), op
             )
         return lhs
