@@ -7,7 +7,7 @@ class Tokenizer:
     def __init__(self, content):
         """Initializer"""
         self.index = 0
-        self.content = content.strip()
+        self.content = content.replace(' ', '').replace('\t', '')
 
     def _get_num_const(self):
         """Retrieves a number constant starting from the current index in the string"""
@@ -37,8 +37,6 @@ class Tokenizer:
         functions["\\"] = self._get_operator
         for i in "1234567890.":
             functions[i] = self._get_num_const
-        while self.content[self.index] in " \t\n":
-            self.index += 1
         return functions[self.content[self.index]]()
 
     def get_string(self):
