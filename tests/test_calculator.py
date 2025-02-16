@@ -8,6 +8,7 @@ from calculator.AST import (
     SubtractionStmtAST,
     MultiplicationStmtAST,
     NumberExprAST,
+    AST, 
 )
 from calculator.calculations import Calculations
 
@@ -31,6 +32,9 @@ def test_calculator(test_input, expected):
     assert Calculator.get_input(test_input) == expected
     with pytest.raises(ZeroDivisionError):
         assert Calculator.get_input("1/0") == 1
+
+def test_calculation(a,b,op, expected):
+    assert AST.create_AST_instance(a,b,op).codegen() == expected
 
 def test_history():
     """Tests the history functionality of the Calculations class"""
