@@ -1,3 +1,5 @@
+"""Main (driver) code """
+
 from calculator import Calculator
 import sys
 
@@ -21,4 +23,4 @@ def calculate_and_print(argv: list[str]) -> float | int:
 
 
 if __name__ == "__main__":
-    calculate_and_print(sys.argv[1:])
+    calculate_and_print(sys.argv[1:])  # pragma: no cover
