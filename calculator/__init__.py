@@ -1,6 +1,13 @@
 from tokenizer import Tokenizer
 from calculations import Calculations
-from AST import AST, NumberExprAST, AdditionStmtAST, SubtractionStmtAST, MultiplicationStmtAST, DivisionStmtAST
+from AST import (
+    AST,
+    NumberExprAST,
+    AdditionStmtAST,
+    SubtractionStmtAST,
+    MultiplicationStmtAST,
+    DivisionStmtAST,
+)
 
 import sys
 
@@ -22,7 +29,7 @@ class Calculator:
     #   A: Repeat myself a little bit with the AST-parsing functions
     #       or
     #   B: Don't repeat myself, but use roughly 6 if-stmts in one recursive function
-    # Lord help me. 
+    # Lord help me.
 
     @staticmethod
     def _higher_operator_precidence(tokens: list[int | float | str]) -> AST:
@@ -62,20 +69,3 @@ class Calculator:
         print(result)
         Calculations.add_to_history(ast)
         return result
-
-    @staticmethod
-    def get_input(argv: list[str]) -> float | int:
-        # if len(argv) == 1:
-        #     ctr = 0
-        #     x = " "
-        #     while x != "":
-        #         try:
-        #             x = input("!" + str(ctr) + ": ")
-        #         except EOFError:
-        #             # Useful for when we pipe something as input rather than manually inputtng something
-        #             break
-        #         ctr += 1
-        #         if x != "":
-        #             Calculator._print_result(x)
-        # else:
-        return Calculator._print_result(*argv)
