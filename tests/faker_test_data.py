@@ -10,6 +10,21 @@ from calculator.AST import (
 	DivisionStmtAST, 
 )
 
+
+def _add(a:int|float,b:int|float):
+	return a+b 
+
+def _sub(a:int|float,b:int|float):
+	return a-b
+
+def _mul(a:int|float,b:int|float): 
+	return a*b
+
+def _div(a:int|float,b:int|float): 
+	if b == 0:
+		return "ZeroDivisionError"
+	return a/b 
+
 faker=Faker()
 
 def generate_test_data(len_data): 
