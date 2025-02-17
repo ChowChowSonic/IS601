@@ -1,13 +1,9 @@
-import Faker
+""" Adds random testing data from faker to the test cases"""
+from faker import Faker
 import pytest
-
+from calculator.AST import AST 
 from calculator.AST import (
-    AST,
     NumberExprAST,
-    AdditionStmtAST,
-    SubtractionStmtAST,
-    MultiplicationStmtAST,
-    DivisionStmtAST,
 )
 
 
@@ -38,9 +34,10 @@ def generate_test_data(len_data):
     for i in range(len_data):
         a = NumberExprAST(faker.random_number(digits=2))
         b = NumberExprAST(faker.random_number(digits=2))
+        if b.codegen() == 0:
+            b = NumberExprAST(1)
         op = faker.random_element(elements=ops.keys())
-        expected = ops[op](a.codegen(), b.codegen())
-
+        expected = ops[op](a.codegen(),b.codegen())
         yield a, b, op, expected
 
 
@@ -56,7 +53,7 @@ def pytest_addoption(parser):
 
 def pytest_generate_tests(metafunc):
     # Check if the test is expecting any of the dynamically generated fixtures
-    if {"a", "b", "expected"}.intersection(set(metafunc.fixturenames)):
+    if {"a", "b", "operation", "expected"}.intersection(set(metafunc.fixturenames)):
         num_records = metafunc.config.getoption("num_records")
         # Adjust the parameterization to include both operation_name and operation for broad compatibility
         # Ensure 'operation_name' is used for identifying the operation in Calculator class tests
@@ -67,9 +64,9 @@ def pytest_generate_tests(metafunc):
             (
                 a,
                 b,
-                op_name if "operation_name" in metafunc.fixturenames else op_func,
+                op_name,
                 expected,
             )
-            for a, b, op_name, op_func, expected in parameters
+            for a, b, op_name, expected in parameters
         ]
         metafunc.parametrize("a,b,operation,expected", modified_parameters)
