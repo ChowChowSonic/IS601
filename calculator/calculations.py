@@ -1,22 +1,22 @@
-from AST import AST
+from calculator.AST import AST
 from typing import List
 
 
 class Calculations:
     history: List[AST] = []
 
-    @staticmethod
-    def add_to_history(item: AST):
+    @classmethod
+    def add_to_history(cls, item: AST):
         Calculations.history.append(item)
 
-    @staticmethod
-    def get_history():
-        return Calculations.history
+    @classmethod
+    def get_history(cls):
+        return cls.history
 
-    @staticmethod
-    def get_from_history(num: int):
-        return Calculations.history[num]
+    @classmethod
+    def get_from_history(cls, num: int):
+        return cls.history[num]
 
-    @staticmethod
-    def clear_history():
-        Calculations.history.clear()
+    @classmethod
+    def clear_history(cls):
+        cls.history.clear()
