@@ -13,8 +13,8 @@ from calculator.AST import (
 from calculator.calculations import Calculations
 
 
-def test_calculation(a, b, op, expected):
-    assert AST.create_AST_instance(a, b, op).codegen() == expected
+def test_calculation(a, b, operation, expected):
+    assert AST.create_AST_instance(a, b, operation).codegen() == expected
 
 
 def test_history():
