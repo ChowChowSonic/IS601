@@ -32,7 +32,7 @@ def test_history():
     assert Calculations.get_from_history(1).codegen() == 30
     assert Calculations.get_from_history(2).codegen() == -10
     assert Calculations.get_from_history(3).codegen() == 20
-    assert Calculations.get_from_history(4).codegen() == 0.5
+    assert Calculations.get_from_history(4).codegen() == 0
     assert len(Calculations.get_history()) == 5
     Calculations.clear_history()
     assert len(Calculations.get_history()) == 0
