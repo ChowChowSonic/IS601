@@ -45,7 +45,8 @@ class BinaryAST(AST):
 class NumberExprAST(AST):
     """A class representing a number; 1234.5"""
 
-    def __init__(self, HS):
+    def __init__(self, HS:float|int|str): 
+        HS=int(HS) 
         self.HS = HS
 
     def codegen(self):
@@ -71,9 +72,9 @@ class DivisionStmtAST(BinaryAST):
 
     def codegen(self):
         r = self.RHS.codegen()
-        if r == 0:
-            raise ZeroDivisionError("Divide by 0 error!")
-        return self.LHS.codegen() / r
+        # if r == 0:
+            # raise ZeroDivisionError("An error occurred: Cannot divide by zero")
+        return self.LHS.codegen() // r
 
 
 class MultiplicationStmtAST(BinaryAST):
