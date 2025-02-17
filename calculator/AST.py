@@ -19,9 +19,13 @@ class AST:
     ) -> 'AST':
         """Creates the actual AST based on the operator supplied"""
         possibilities = {
+            "add": AdditionStmtAST,
             "+": AdditionStmtAST,
+            "subtract": SubtractionStmtAST, 
             "-": SubtractionStmtAST,
+            "multiply": MultiplicationStmtAST, 
             "*": MultiplicationStmtAST,
+            "divide": DivisionStmtAST, 
             "/": DivisionStmtAST,
             "\\": DivisionStmtAST,
         }
