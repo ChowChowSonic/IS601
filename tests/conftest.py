@@ -1,43 +1,23 @@
 """ Adds random testing data from faker to the test cases"""
+
 from faker import Faker
 import pytest
-from calculator.AST import AST 
-from calculator.AST import (
-    NumberExprAST,
-)
-
-
-def _add(a: int | float, b: int | float):
-    return a + b
-
-
-def _sub(a: int | float, b: int | float):
-    return a - b
-
-
-def _mul(a: int | float, b: int | float):
-    return a * b
-
-
-def _div(a: int | float, b: int | float):
-    if b == 0:
-        return "ZeroDivisionError"
-    return a / b
+from calculator.AST import AST
+from calculator.AST import NumberExprAST, AST
 
 
 faker = Faker()
 
 
 def generate_test_data(len_data):
-    ops = {"+": _add, "-": _sub, "*": _mul, "/": _div}
 
     for i in range(len_data):
-        a = NumberExprAST(faker.random_number(digits=2))
-        b = NumberExprAST(faker.random_number(digits=2))
-        if b.codegen() == 0:
+        a = NumberExprAST(faker.random_number(digits=1))
+        b = NumberExprAST(faker.random_number(digits=1))
+        op = faker.random_element(elements=["add", "subtract", "multiply", "divide"])
+        if op == "divide" and b.codegen() == 0:
             b = NumberExprAST(1)
-        op = faker.random_element(elements=ops.keys())
-        expected = ops[op](a.codegen(),b.codegen())
+        expected = AST.create_AST_instance(a, b, op).codegen()
         yield a, b, op, expected
 
 
