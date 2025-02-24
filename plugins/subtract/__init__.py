@@ -1,8 +1,6 @@
 from app.commands import Command
 class subtract(Command):
-	def __init__(self, a, b):
-		self.a = a
-		self.b = b 
-
-	def execute(self):
-		print("The result of",self.a,"subtract",self.b,"is equal to",self.a+self.b) 
+	def __init__(self):
+		pass 
+	def execute(self, args:list[str]):
+		print("The result of",args[0],"subtract",args[1],"is equal to",int(args[0])-int(args[1])) 
