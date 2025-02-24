@@ -6,7 +6,6 @@ from calculator.AST import (
     SubtractionStmtAST,
     MultiplicationStmtAST,
     NumberExprAST,
-    AST,
 )
 from calculator.calculations import Calculations
 
