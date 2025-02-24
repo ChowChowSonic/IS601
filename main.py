@@ -1,10 +1,10 @@
 """Main (driver) code """
 
-from calculator import Calculator
+from app import App
 import sys
 
 
-def calculate_and_print(argv: str, arg2: str, op: str) -> float | int:
+def calculate_and_print(argv: list[str]) -> float | int:
     """Originally, this function was able to take in a mathematical equation 
         (for example: 1.0+3*6) from either a pipe or split across sys.argv; 
         However, I had to rewrite this to be compliant with our class's output requirements"""
@@ -22,13 +22,15 @@ def calculate_and_print(argv: str, arg2: str, op: str) -> float | int:
     #             Calculator._print_result(x)
     # else:
     try: 
-        print("The result of",argv,op,arg2,"is equal to",Calculator.get_result(argv, arg2, op)) 
+        app=App()
+        app.start()
+        app.execute_command(argv[-1], argv[:-1])
     except ZeroDivisionError: 
         print("An error occurred: Cannot divide by zero")
     except KeyError:
-        print("Unknown operation:", op)
+        print("Unknown operation:", argv[-1])
     except ValueError:
-        print(f"Invalid number input: {argv} or {arg2} is not a valid number.")
+        print(f"Invalid number input: {argv[0]} or {argv[1]} is not a valid number.")
 
 if __name__ == "__main__":
-    calculate_and_print(sys.argv[1], sys.argv[2], sys.argv[3])  # pragma: no cover
+    calculate_and_print(sys.argv[1:])  # pragma: no cover
