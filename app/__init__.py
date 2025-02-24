@@ -28,7 +28,6 @@ class App:
                     module = importlib.util.module_from_spec(spec)
                     spec.loader.exec_module(module)
                     modules[module_name] = module
-                    print(f"Imported module: {module_name}")
 
         return modules
 
