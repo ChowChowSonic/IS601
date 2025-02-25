@@ -2,7 +2,7 @@
 
 import pytest
 from main import calculate_and_print
-from app.commands import Command, CommandHandler
+from app.commands import Command, CommandHandler, MenuCommand
 
 
 def test_ast():
@@ -14,11 +14,12 @@ def test_ast():
         x.execute_command("test", [])
 
 
-# def test_binaryast():
-#     """Test that the Binary AST class throws an error"""
-#     with pytest.raises(NotImplementedError):
-#         bast = BinaryAST(NumberExprAST(0), NumberExprAST(0))
-#         bast.codegen()
+def test_menu(capsys):
+    """Test that the Binary AST class throws an error"""
+    x = MenuCommand(["1", "2", "3"])
+    x.execute([])
+    captured = capsys.readouterr()
+    assert captured.out == "1\n2\n3\n"
 
 
 def test_addition(capsys):
