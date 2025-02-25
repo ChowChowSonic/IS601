@@ -1,12 +1,17 @@
 """My Calculator Test"""
 
+import pytest
 from main import calculate_and_print
+from app.commands import Command, CommandHandler
 
-# def test_ast():
-#     """Testing Abstract Syntax Tree"""
-#     # AST() & AST.codegen() throws an error when called
-#     with pytest.raises(NotImplementedError):
-#         AST().codegen()
+
+def test_ast():
+    """Testing Abstract Syntax Tree"""
+    # AST() & AST.codegen() throws an error when called
+    with pytest.raises(NotImplementedError):
+        x = CommandHandler()
+        x.register_command("test", Command())
+        x.execute_command("test", [])
 
 
 # def test_binaryast():
