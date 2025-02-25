@@ -1,5 +1,6 @@
 """Testing the main driver code """
 
+import sys
 import pytest
 from main import calculate_and_print
 
@@ -64,8 +65,16 @@ def test_div_by_0(capsys):
     assert captured.out.strip() == "An error occurred: Cannot divide by zero"
 
 
-# def test_from_pipe():
-#     oldstdin = sys.stdin
-#     sys.stdin = open("testdata.txt")
-#     assert calculate_and_print() is None
-#     sys.stdin = oldstdin
+def test_from_pipe(capsys):
+    """Tests piping input into program"""
+    with open("testdata.txt", "r", encoding="utf-8") as file:
+        oldstdin = sys.stdin
+        sys.stdin = file
+        calculate_and_print()
+        cap = capsys.readouterr()
+        print(cap.out)
+        assert (
+            cap.out
+            == "add\ndivide\nmultiply\nsubtract\nThe result of 1 add 2 is equal to 3\n"
+        )
+        sys.stdin = oldstdin
