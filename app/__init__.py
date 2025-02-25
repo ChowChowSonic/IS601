@@ -1,10 +1,11 @@
-from app.commands import CommandHandler
+from app.commands import CommandHandler, MenuCommand
 import os, sys, importlib.util
 
 
 class App:
 	def __init__(self):
 		self.handler = CommandHandler()
+		
 
 	def _import_plugins(self, plugins_dir:str="plugins"):
 		plugins_path = os.path.abspath(plugins_dir)
@@ -30,6 +31,7 @@ class App:
 		plugins = self._import_plugins()
 		for k in plugins:
 			self.handler.register_command(k, getattr(plugins[k], k)())
+		self.handler.register_command("menu", MenuCommand(plugins.keys()))
 
 	def execute_command(self, cmd: str, args: list[str]): 
 		self.handler.execute_command(cmd, args)
