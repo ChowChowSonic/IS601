@@ -17,9 +17,11 @@ def generate_test_data(len_data):
             "multiply": lambda a, b: a * b,
             "divide": lambda a, b: a // b,
         }
-        b=b+1 # So it can't be zero (I'm assuming random_number can generate 0 but can't generate negative numbers)
+        b = (
+            b + 1
+        )  # So it can't be zero (I'm assuming random_number can generate 0)
         # if op == "divide" and b == 0:
-            # b = 1
+        # b = 1
         expected = lambdas[op](a, b)
         yield a, b, op, expected
 
