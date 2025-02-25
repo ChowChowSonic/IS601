@@ -14,10 +14,7 @@ class CommandHandler:
 
 
 	def register_command(self, name: str, cmd: Command):
-			self.commands[name]=cmd
+		self.commands[name]=cmd
 
 	def execute_command(self, name:str, args:list[str]): 
-			try:
-				self.commands[name].execute(args) 
-			except KeyError: 
-				print(f"No suh command: {name}")
+		self.commands[name].execute(args) 
