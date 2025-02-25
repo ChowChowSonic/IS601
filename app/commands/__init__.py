@@ -6,6 +6,17 @@ class Command:
 
 	def execute(self, args:list[str]):
 		raise NotImplementedError("Command is an abstract class!")
+	
+class MenuCommand(Command):
+	def __init__(self, plugins:list[str]):
+		self.plugins = plugins
+
+	def execute(self, args):
+		for x in self.plugins: 
+			print(x)
+
+	def help():
+
 
 class CommandHandler: 
 
