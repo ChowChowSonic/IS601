@@ -1,8 +1,6 @@
 """ Adds random testing data from faker to the test cases"""
 
 from faker import Faker
-from calculator.AST import NumberExprAST, AST
-
 
 faker = Faker()
 
@@ -10,12 +8,18 @@ faker = Faker()
 def generate_test_data(len_data):
     """Generates tests dadta"""
     for _ in range(len_data):
-        a = NumberExprAST(faker.random_number(digits=1))
-        b = NumberExprAST(faker.random_number(digits=1))
+        a = faker.random_number(digits=1)
+        b = faker.random_number(digits=1)
         op = faker.random_element(elements=["add", "subtract", "multiply", "divide"])
-        if op == "divide" and b.codegen() == 0:
-            b = NumberExprAST(1)
-        expected = AST.create_AST_instance(a, b, op).codegen()
+        lambdas = {
+            "add": lambda a, b: a + b,
+            "subtract": lambda a, b: a - b,
+            "multiply": lambda a, b: a * b,
+            "divide": lambda a, b: a // b,
+        }
+        if op == "divide" and b == 0:
+            b = 1
+        expected = lambdas[op](a, b)
         yield a, b, op, expected
 
 
@@ -33,7 +37,9 @@ def pytest_addoption(parser):
 def pytest_generate_tests(metafunc):
     """Generates the test/result pairs"""
     # Check if the test is expecting any of the dynamically generated fixtures
-    if {"a_input", "b_input", "operation", "expected"}.intersection(set(metafunc.fixturenames)):
+    if {"a_input", "b_input", "operation", "expected"}.intersection(
+        set(metafunc.fixturenames)
+    ):
         num_records = metafunc.config.getoption("num_records")
         # Adjust the parameterization to include both operation_name and
         # operation for broad compatibility. Ensure 'operation_name'
