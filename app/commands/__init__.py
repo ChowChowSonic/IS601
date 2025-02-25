@@ -15,8 +15,6 @@ class MenuCommand(Command):
 		for x in self.plugins: 
 			print(x)
 
-	def help():
-
 
 class CommandHandler: 
 
