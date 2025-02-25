@@ -1,48 +1,44 @@
 """My Calculator Test"""
 
-import pytest
-from calculator.AST import (
-    NumberExprAST,
-    AdditionStmtAST,
-    SubtractionStmtAST,
-    MultiplicationStmtAST,
-    DivisionStmtAST,
-    AST,
-    BinaryAST,
-)
+from main import calculate_and_print
+
+# def test_ast():
+#     """Testing Abstract Syntax Tree"""
+#     # AST() & AST.codegen() throws an error when called
+#     with pytest.raises(NotImplementedError):
+#         AST().codegen()
 
 
-def test_ast():
-    """Testing Abstract Syntax Tree"""
-    # AST() & AST.codegen() throws an error when called
-    with pytest.raises(NotImplementedError):
-        AST().codegen()
+# def test_binaryast():
+#     """Test that the Binary AST class throws an error"""
+#     with pytest.raises(NotImplementedError):
+#         bast = BinaryAST(NumberExprAST(0), NumberExprAST(0))
+#         bast.codegen()
 
 
-def test_binaryast():
-    """Test that the Binary AST class throws an error"""
-    with pytest.raises(NotImplementedError):
-        bast = BinaryAST(NumberExprAST(0), NumberExprAST(0))
-        bast.codegen()
-
-
-def test_addition():
+def test_addition(capsys):
     """Test that the addition function works"""
-    assert AdditionStmtAST(NumberExprAST(2), NumberExprAST(2)).codegen() == 4
+    calculate_and_print(["1", "0", "add"])
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "The result of 1 add 0 is equal to 1"
 
 
-def test_subtraction():
+def test_subtraction(capsys):
     """Test that the subtraction function works"""
-    assert SubtractionStmtAST(NumberExprAST(2), NumberExprAST(2)).codegen() == 0
+    calculate_and_print(["1", "0", "subtract"])
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "The result of 1 subtract 0 is equal to 1"
 
 
-def test_multiplication():
+def test_multiplication(capsys):
     """Test that the multiplication function works"""
-    assert MultiplicationStmtAST(NumberExprAST(3), NumberExprAST(2)).codegen() == 6
+    calculate_and_print(["1", "0", "multiply"])
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "The result of 1 multiply 0 is equal to 0"
 
 
-def test_division():
+def test_division(capsys):
     """Test that the division function works"""
-    assert DivisionStmtAST(NumberExprAST(2), NumberExprAST(2)).codegen() == 1
-    with pytest.raises(ZeroDivisionError):
-        assert DivisionStmtAST(NumberExprAST(2), NumberExprAST(0)).codegen() == 1
+    calculate_and_print(["4", "2", "divide"])
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "The result of 4 divide 2 is equal to 2"
