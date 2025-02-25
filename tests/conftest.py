@@ -8,8 +8,8 @@ faker = Faker()
 def generate_test_data(len_data):
     """Generates tests dadta"""
     for _ in range(len_data):
-        a = faker.random_number(digits=1)
-        b = faker.random_number(digits=1)
+        a = faker.random_number(digits=2)
+        b = faker.random_number(digits=2)
         op = faker.random_element(elements=["add", "subtract", "multiply", "divide"])
         lambdas = {
             "add": lambda a, b: a + b,
@@ -17,8 +17,9 @@ def generate_test_data(len_data):
             "multiply": lambda a, b: a * b,
             "divide": lambda a, b: a // b,
         }
-        if op == "divide" and b == 0:
-            b = 1
+        b=b+1 # So it can't be zero (I'm assuming random_number can generate 0 but can't generate negative numbers)
+        # if op == "divide" and b == 0:
+            # b = 1
         expected = lambdas[op](a, b)
         yield a, b, op, expected
 
