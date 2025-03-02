@@ -1,11 +1,20 @@
+import logging.config
 from app.commands import CommandHandler, MenuCommand
 import os, sys, importlib.util
-
+import logging 
 
 class App:
 	def __init__(self):
+		os.makedirs("logs", exist_ok=True)
 		self.handler = CommandHandler()
+		self.settings = {key:value for key, value in os.environ.items()}
+		logging_conf_path='logging.conf'
+		if os.path.exists(logging_conf_path):
+			logging.config.fileConfig(logging_conf_path, disable_existing_loggers=False)
+		logging.info("App started")
 		
+	def get_env(self, name:str): 
+		return self.settings.get(name, None) 
 
 	def _import_plugins(self, plugins_dir:str="plugins"):
 		plugins_path = os.path.abspath(plugins_dir)
@@ -34,4 +43,5 @@ class App:
 		self.handler.register_command("menu", MenuCommand(plugins.keys()))
 
 	def execute_command(self, cmd: str, args: list[str]): 
+		logging.info(f"Executed command {cmd} with args {args}")
 		self.handler.execute_command(cmd, args)
