@@ -78,3 +78,12 @@ def test_from_pipe(capsys):
             == "add\ndivide\nmultiply\nsubtract\nThe result of 1 add 2 is equal to 3\n"
         )
         sys.stdin = oldstdin
+
+def test_logging(): 
+    with open("logs/app.log", 'w') as file:
+        file.write("")
+        file.flush()
+    calculate_and_print([1,0,"divide"])
+    with open("logs/app.log") as file:
+        assert file.readline().strip().endswith("root - INFO - App started") 
+        assert file.readline().strip().endswith("root - INFO - Executed command divide with args [1, 0]")
