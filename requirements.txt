@@ -8,7 +8,6 @@ click==8.1.7
 colorama==0.4.6
 configobj==5.0.9
 coverage==7.6.10
-Cython==3.0.12
 delegator.py==0.1.1
 dill==0.3.9
 distlib==0.3.9
@@ -16,9 +15,6 @@ dotenv==0.9.9
 Faker==36.1.1
 filelock==3.17.0
 Flask==3.1.0
-frida==16.5.7
-frida-tools==13.6.0
-google-play-scraper==1.2.7
 idna==3.10
 iniconfig==2.0.0
 isort==6.0.0
@@ -27,10 +23,8 @@ Jinja2==3.1.4
 litecli==1.13.2
 MarkupSafe==3.0.2
 mccabe==0.7.0
-numpy==2.2.2
 objection==1.11.0
 packaging==24.2
-pandas==2.2.3
 pexpect==4.9.0
 platformdirs==4.3.6
 pluggy==1.5.0
@@ -46,10 +40,8 @@ python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 pytz==2025.1
 requests==2.32.3
-scipy==1.15.1
 semver==2.13.0
 setuptools==75.6.0
-shedskin==0.0.0
 six==1.17.0
 sqlparse==0.5.2
 tabulate==0.9.0
