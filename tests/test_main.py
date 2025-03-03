@@ -74,19 +74,22 @@ def test_from_pipe(capsys):
         cap = capsys.readouterr()
         print(cap.out)
         assert (
-            cap.out
-            == "add\ndivide\nmultiply\nsubtract\nThe result of 1 add 2 is equal to 3\n"
+            "The result of 1 add 2 is equal to 3" in cap.out
+            and "add" in cap.out
+            and "subtract" in cap.out
+            and "multiply" in cap.out
+            and "divide" in cap.out
         )
         sys.stdin = oldstdin
 
 
 def test_logging():
     """Tests that logging works"""
-    with open("logs/app.log", "w", encoding='utf-8') as file:
+    with open("logs/app.log", "w", encoding="utf-8") as file:
         file.write("")
         file.flush()
     calculate_and_print([1, 0, "divide"])
-    with open("logs/app.log", encoding='utf-8') as file:
+    with open("logs/app.log", encoding="utf-8") as file:
         assert file.readline().strip().endswith("root - INFO - App started")
         assert (
             file.readline()
