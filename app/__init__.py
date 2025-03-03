@@ -1,5 +1,6 @@
 import logging.config
 from app.commands import CommandHandler, MenuCommand
+from dotenv import load_dotenv
 import os, sys, importlib.util
 import logging 
 
@@ -7,10 +8,10 @@ class App:
 	def __init__(self):
 		os.makedirs("logs", exist_ok=True)
 		self.handler = CommandHandler()
+		load_dotenv()
 		self.settings = {key:value for key, value in os.environ.items()}
-		logging_conf_path='logging.conf'
-		if os.path.exists(logging_conf_path):
-			logging.config.fileConfig(logging_conf_path, disable_existing_loggers=False)
+		if os.path.exists(self.get_env("LOGGINGPATH")):
+			logging.config.fileConfig(self.get_env("LOGGINGPATH"), disable_existing_loggers=False)
 		logging.info("App started")
 		
 	def get_env(self, name:str): 
