@@ -79,11 +79,17 @@ def test_from_pipe(capsys):
         )
         sys.stdin = oldstdin
 
-def test_logging(): 
-    with open("logs/app.log", 'w') as file:
+
+def test_logging():
+    """Tests that logging works"""
+    with open("logs/app.log", "w", encoding='utf-8') as file:
         file.write("")
         file.flush()
-    calculate_and_print([1,0,"divide"])
-    with open("logs/app.log") as file:
-        assert file.readline().strip().endswith("root - INFO - App started") 
-        assert file.readline().strip().endswith("root - INFO - Executed command divide with args [1, 0]")
+    calculate_and_print([1, 0, "divide"])
+    with open("logs/app.log", encoding='utf-8') as file:
+        assert file.readline().strip().endswith("root - INFO - App started")
+        assert (
+            file.readline()
+            .strip()
+            .endswith("root - INFO - Executed command divide with args [1, 0]")
+        )
